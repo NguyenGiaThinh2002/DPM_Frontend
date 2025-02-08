@@ -1,0 +1,84 @@
+/* Collapse Container */
+.collapseContainer {
+    margin: 10px 0;
+    border-radius: 8px;
+    padding: 5px;
+    display: block;
+    overflow: hidden; /* Ensures border remains visible even when content is collapsed */
+}
+
+/* Collapsible Header */
+.setting {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px 8px 0px 0px;
+    border-color: #727272;
+    color: #727272;
+    background-color: #EEEEEE;
+    
+}
+
+/* Arrow Icon */
+.arrow {
+    font-size: 20px;
+    margin: 5px 10px 0px 0px;
+}
+
+/* Collapsible Content */
+.collapseContent {
+
+    margin-top: 0px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: F5F9FF;
+    max-height: 0; /* Collapsing the content by reducing the height to 0 */
+    overflow: hidden; /* Hides the content */
+    transition: max-height 0.3s ease-out; /* Smooth transition */
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 0px 0px 2px 2px;
+ 
+}
+
+/* Expand the content when not collapsed */
+.collapseContent:not(.collapsed) {
+    max-height: 1000px; /* Set a high max-height value so that content is fully visible */
+}
+
+/* Hide Collapsed Content */
+.collapsed {
+    display: block;
+}
+
+/* Form Group and Buttons (styling the form fields and buttons) */
+.text {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.formgroup {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.formfield {
+    padding: 8px;
+    font-size: 14px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    animation: Navbar_fadeIn__kPcVl 1.2s ease-in;
+}

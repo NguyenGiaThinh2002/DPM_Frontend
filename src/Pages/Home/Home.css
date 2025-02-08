@@ -1,0 +1,109 @@
+.home {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif;
+	background: url("../../Assets/background.png") no-repeat center center fixed;
+	background-size: cover;
+}
+
+.homeMain{	
+	width: 350px;
+	height: 500px;
+	background: rgb(8, 82, 100);
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+}
+#chk{
+	display: none;
+}
+.signup{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+label{
+	color: rgb(8, 82, 100);
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 45px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+.homeInput{
+	width: 70%;
+	/* height: 10px; */
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 12px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+.homeButton{
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #3b6a8a;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 30px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+.homeButton:hover{
+	background: #3b6a8a;
+}
+.login{
+	height: 460px;
+	position: relative;
+	background: #eee;
+	border-radius: 60% / 10%;
+	transform: translateY(-180px);
+	transition: .8s ease-in-out;
+}
+.login label{
+	color: #3b6a8a;
+	padding-top: 10px;
+	transform: scale(.6);
+}
+
+#chk:checked ~ .login{
+	transform: translateY(-500px);
+}
+#chk:checked ~ .login label{
+	transform: scale(1);	
+}
+#chk:checked ~ .signup label{
+	transform: scale(.6);
+}
+
+.version{
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	bottom: 0;
+	margin-bottom: 60px;
+	color: #3b6a8a;
+	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+button{
+	display: block;
+	margin: 5px;
+}

@@ -1,0 +1,93 @@
+/* Main Modal Container */
+.dataDetail {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1120px;
+    background: #f7f9fb; /* Light gray background */
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+    color: #727272; /* Dark text for better readability */
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* JSON Display Box */
+.jsonDisplay {
+    max-height: 450px;
+    overflow-y: auto;
+    background: #ffffff; /* Soft white */
+    color: #727272; /* Dark text */
+    padding: 14px;
+    border-radius: 8px;
+    font-family: "Courier New", monospace;
+
+}
+
+/* Data Columns */
+.dataColumns {
+    display: flex;
+    flex-wrap: wrap;
+    width: 30px;
+}
+
+/* Detail Text */
+.dataDetailText {
+    font-size: 25px;
+    font-weight: 600;
+    color: #5b9bd5; /* Soft blue for highlight */
+    text-align: center;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .dataDetail {
+        width: 95%;
+        padding: 18px;
+    }
+
+    .jsonDisplay {
+        max-height: 240px;
+        font-size: 13px;
+    }
+
+    .dataDetailText {
+        font-size: 30px;
+    }
+
+    .dataColumn {
+        min-width: 100px;
+        font-size: 13px;
+    }
+}
+
+.button {
+    padding: 8px 12px;
+    background-color: #4ea8de;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+      background-color: #367fa9;
+  }
