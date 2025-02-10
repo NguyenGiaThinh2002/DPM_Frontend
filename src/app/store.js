@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/counterSlice";
 import userReducer from "../features/user/userSlice";
 import {thunk} from "redux-thunk";
+import settingSlice from "../features/settings/settingSlice";
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    setting: settingSlice,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -10,7 +10,7 @@
 }
 
 :root {
-    --input-color: #99a3ba;
+    --input-color: #040608;
     --input-border: #cdd9ed;
     --input-background: #fff;
     --input-placeholder: #cbd1dc;
@@ -404,4 +404,32 @@ html {
     padding: 10px;
     padding-bottom: 20px;
 
+}
+
+/* .inputGroup{
+    display: flex;
+    flex-direction: column;
+} */
+
+.ampm {
+    margin: 5px;
+    padding: 6px 6px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.ampm:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.ampm option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
 }

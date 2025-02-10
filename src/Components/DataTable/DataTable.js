@@ -23,8 +23,8 @@ const DataTable = ({data,dataColumns, dataName }) => {
               return <th key={columnName}>{columnName}</th>;
               })} */}
           <tr>
-            {dataColumns?.map((columnName) =>(
-              <th>{columnName}</th>
+            {dataColumns?.map((columnName,index) =>(
+              <th key={index}>{columnName}</th>
             ))}
           </tr>
 

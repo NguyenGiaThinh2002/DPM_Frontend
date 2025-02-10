@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import DataTable from '../../Components/DataTable/DataTable'
+import { useSelector } from 'react-redux';
 export default function LogHistoryPage() {
     const [data, setData] = useState([]);
     const [dataName, setDataName] = useState("Logging History");
@@ -7,8 +8,14 @@ export default function LogHistoryPage() {
     const [loading, setLoading] = useState(true);
     const now = new Date();
     const nowString = now.toISOString().slice(0, 19).replace("T", " ");
-    
+
+    const settings = useSelector((state) => state.setting.settings);
     useEffect(() => {
+      console.log("settings", settings);
+    },[settings])
+    
+    useEffect(() => { 
+      
       // Fetch data from server
       // fetch('https://your-api-endpoint.com/data') // Replace with your API endpoint
       //   .then((response) => response.json())
