@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './DataDetail.module.css'
+import axios from '../../Services/axios'
 
 export default function DataDetail({ item, setSelectedItem, dataColumns }) {
-    //   const [isOpen, setIsOpen] = useState(true);
+    const [data, setData] = useState([]);
 
-    const data = [
-        { Index: 1, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Auto", Status: "Successful" },
-        { Index: 2, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Manual", Status: "Successful" },
-        { Index: 3, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Auto", Status: "Failed" },
-        { Index: 4, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Auto", Status: "Successful" },
-        // { Index: 5, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Auto", Status: "Successful" },
-        // { Index: 6, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Auto", Status: "Successful" },
-        // { Index: 7, URL: "https//:server.com/data", Datetime: "nowString", Mode: "Manual", Status: "Successful" }
-    ];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`/loggings/getLoggingByID/${item._id}`);
+                console.log("this logging", res);
+                setData(res.data.data);
+            } catch (err) {
+                console.log("this error", err);
+            }
+        };
+
+        if (item?._id) {
+            fetchData();
+        }
+    }, [item._id]);
 
     return (
         <div>
@@ -21,12 +28,12 @@ export default function DataDetail({ item, setSelectedItem, dataColumns }) {
             >
                 <div className={styles.dataDetailText}>
                     Data Detail
-                </div> 
+                </div>
                 <table>
                     <tbody>
-                        {Object.values(item).map((value, idx) => (
+                        {Object.values(item).slice(2).map((value, idx) => (
                             <tr key={idx} >
-                                <td className={styles.dataColumns}>{dataColumns[idx]}: </td>
+                                <td className={styles.dataColumns}>{dataColumns[idx].toUpperCase()}: </td>
                                 <td className={styles.dataValues}>{value}</td>
                             </tr>
                         ))}

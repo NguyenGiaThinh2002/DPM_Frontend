@@ -34,7 +34,7 @@
 .dataColumns {
     display: flex;
     flex-wrap: wrap;
-    width: 30px;
+    width: 60px;
 }
 
 /* Detail Text */

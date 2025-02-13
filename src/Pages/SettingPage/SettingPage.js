@@ -15,7 +15,6 @@ export default function SettingPage() {
   const [formDataSettings, setFormDataSettings] = useState({});
 
   const [showDialog, setShowDialog] = useState(false);
-
   const openDialog = () => setShowDialog(true);
   const closeDialog = () => setShowDialog(false);
 
@@ -31,9 +30,8 @@ export default function SettingPage() {
       serverPort: settings.serverPort || "",
       databaseUrl: settings.databaseUrl || "",
       databaseName: settings.databaseName || "",
-      collectionName: settings.collectionName || "",
-      periodicTime: settings.periodicTime || "",
-      cycleTime: settings.cycleTime || "",
+      periodicTime: settings.periodicTime || "0",
+      cycleTime: settings.cycleTime || "0",
     });
   }, [settings]);
 
@@ -54,7 +52,6 @@ export default function SettingPage() {
     if (!data.serverPort) newErrors.serverPort = "Server Port is required";
     if (!data.databaseUrl) newErrors.databaseUrl = "Database URL is required";
     if (!data.databaseName) newErrors.databaseName = "Database Name is required";
-    if (!data.collectionName) newErrors.collectionName = "Collection Name is required";
     if (!data.periodicTime) newErrors.periodicTime = "Periodic Time is required";
     if (!data.cycleTime) newErrors.cycleTime = "Cycle Time is required";
     return newErrors;
@@ -75,8 +72,7 @@ export default function SettingPage() {
 
   const saveSetting = async () => {
     try {
-      //const user = "67a97d2b460db19480fce72c";
-      await axios.post(`http://localhost:5080/settings/createSettings/${users._id}`, formDataSettings);
+      await axios.post(`/settings/createSettings/${users._id}`, formDataSettings);
       console.log("SUCCESSFUL");
       openDialog();
     } catch (error) {
@@ -84,9 +80,17 @@ export default function SettingPage() {
     }
   };
 
+  const startServer = async () =>{
+    try {
+      await axios.post(`/settings/startServerSettings/${users._id}`);
+      console.log("Start Server SUCCESSFUL");
+    } catch (error) {
+      console.log("FAILED", error);
+    }
+  }
+
   return (
     <div className={styles.content} >
-
       <div className={styles.setting}>SETTINGS</div>
       <div className={styles.settingBody}>
         <Collapse className={styles.serverSetting} title='Server Settings'>
@@ -155,21 +159,6 @@ export default function SettingPage() {
               {errors.databaseName && <p className="error">{errors.databaseName}</p>}
             </div>
 
-
-            <div className={styles.text}>Enter Collection Name:</div>
-            <div className={styles.formgroup}>
-              <span>Collection</span>
-              <input
-                value={formDataSettings.collectionName}
-                name="collectionName"
-                onChange={handleChange}
-                className={styles.formfield}
-                type="text"
-                placeholder="User"
-              />
-              {errors.collectionName && <p className="error">{errors.collectionName}</p>}
-            </div>
-
           </div>
         </Collapse>
 
@@ -178,11 +167,7 @@ export default function SettingPage() {
           <div className={styles.schedule}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <div className={styles.text}>Enter Synchronized Periodic Time:</div>
-              {/* <select id="ampm" className={styles.ampm} onChange={handleSelectChange} value={ampm}> 
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-              </select> */}
-              {/* <div className={styles.text}>everyday</div> */}
+
             </div>
 
             <div className={styles.formgroup}>
@@ -212,14 +197,9 @@ export default function SettingPage() {
               />
               {errors.cycleTime && <p className={styles.error}>{errors.cycleTime}</p>}
             </div>
-            {/* <div className={styles.inputGroup}>
 
-
-              </div> */}
           </div>
         </Collapse>
-
-
 
       </div>
 
@@ -232,7 +212,8 @@ export default function SettingPage() {
           Save Settings
         </button>
 
-        <button disabled={isDisabled}
+        <button
+          onClick={() => startServer()}
           className={styles.startServerButton}>
           Start Server
         </button>
@@ -248,32 +229,58 @@ export default function SettingPage() {
 }
 
 
-// Comment Codes
-{/* <div className={styles.text}>Enter Endpoint for URL:</div>
-<div className={styles.formgroup}>
-  <span>endpoint</span>
-  <input className={styles.formfield} type="text" placeholder="/data/" />
-  <button>Enter</button>
-</div> */}
 
 
-{/* <p style={{padding: "0px"}}>
-<label className={styles.toggleSwitch} onclick="">
-<input type="checkbox" />
-<span>
-  <span style={{ fontSize: "10px" }}>OFF</span>
-  <span style={{ fontSize: "10px" }}>ON</span>
-</span>
-<a></a>
-</label>
-</p> */}
+/// Comment Codes
 
-{/* onClick={() => setIsDisabled(!isDisabled)} */ }
+              // {/* <select id="ampm" className={styles.ampm} onChange={handleSelectChange} value={ampm}> 
+              //   <option value="AM">AM</option>
+              //   <option value="PM">PM</option>
+              // </select> */}
+              // {/* <div className={styles.text}>everyday</div> */}
+
+// {/* <div className={styles.text}>Enter Collection Name:</div>
+// <div className={styles.formgroup}>
+//   <span>Collection</span>
+//   <input
+//     value={formDataSettings.collectionName}
+//     name="collectionName"
+//     onChange={handleChange}
+//     className={styles.formfield}
+//     type="text"
+//     placeholder="User"
+//   />
+//   {errors.collectionName && <p className="error">{errors.collectionName}</p>}
+// </div> */}
 
 
-{/* <div className={styles.text}>Enter Port:</div>
-<div className={styles.formgroup}>
-  <span>Port</span>
-  <input className={styles.formfield} type="text" placeholder="5000" />
-  <button>Enter</button>
-</div> */}
+// {/* <div className={styles.text}>Enter Endpoint for URL:</div>
+// <div className={styles.formgroup}>
+//   <span>endpoint</span>
+//   <input className={styles.formfield} type="text" placeholder="/data/" />
+//   <button>Enter</button>
+// </div> */}
+
+
+// {/* <p style={{padding: "0px"}}>
+// <label className={styles.toggleSwitch} onclick="">
+// <input type="checkbox" />
+// <span>
+//   <span style={{ fontSize: "10px" }}>OFF</span>
+//   <span style={{ fontSize: "10px" }}>ON</span>
+// </span>
+// <a></a>
+// </label>
+// </p> */}
+
+// {/* onClick={() => setIsDisabled(!isDisabled)} */ }
+
+
+// {/* <div className={styles.text}>Enter Port:</div>
+// <div className={styles.formgroup}>
+//   <span>Port</span>
+//   <input className={styles.formfield} type="text" placeholder="5000" />
+//   <button>Enter</button>
+// </div> */}
+
+/// Comment Codes

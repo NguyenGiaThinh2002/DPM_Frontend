@@ -3,6 +3,7 @@ import styles from './BodyContent.module.css';
 import DataTable from '../../Components/DataTable/DataTable';
 import SettingPage from '../../Pages/SettingPage/SettingPage';
 import LoggingPage from  '../../Pages/LogHistoryPage/LogHistoryPage';
+import ApiSettingPage from '../../Pages/ApiSettingPage/ApiSettingPage';
 
 function BodyContent({ selectedForm }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -54,11 +55,17 @@ function BodyContent({ selectedForm }) {
         <LoggingPage />
       </div>
     </div>
+  ) : selectedForm === 'apiSettingForm' ? (
+    <div className={styles.bodyContent}>
+      <div className={styles.content}>
+        <ApiSettingPage />
+      </div>
+    </div>
   ) : (
     <div className={styles.bodyContent}>
       <div className={styles.content}>
         {/* <button>Synchronize Data</button> */}
-        {loading ? <div style={{marginTop: "150px"}}>Loading...</div> : <DataTable data={data} dataName={dataName} dataColumns={dataColumns}/>}
+        {/* {loading ? <div style={{marginTop: "150px"}}>Loading...</div> : <DataTable data={data} dataName={dataName} dataColumns={dataColumns}/>} */}
       </div>
     </div>
   );

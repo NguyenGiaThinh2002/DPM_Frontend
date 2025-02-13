@@ -5,7 +5,7 @@ const Dialog = ({ message, onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.dialog}>
-        <div className={`modal fade ${styles.modalConfirm}`} style={{ display: 'block' }} aria-hidden="true">
+        <div className={`modal fade ${styles.modalConfirm}`}>
           <div className={`${styles.modalDialog} modal-dialog`}>
             <div className={styles.modalContent}>
               <div className={styles.modalHeader}>

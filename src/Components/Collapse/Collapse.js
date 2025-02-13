@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Collapse.module.css'; // Import your styles
 import { FaArrowRight , FaArrowDown  } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 // Collapse component for any content
 const Collapse = ({ title, children }) => {
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isThisCollapsed, setIsCollapsed] = useState(true);
 
+    const isCollapsed = useSelector((state) => state.collapse.isCollapsed);
+    
     const toggleCollapse = () => {
         setIsCollapsed(prevState => !prevState);
     };
+
+    useEffect(() => {
+        setIsCollapsed(false);
+    }, [isCollapsed])
+
+    
 
     return (
         <div className={styles.collapseContainer}>
@@ -15,10 +24,10 @@ const Collapse = ({ title, children }) => {
                 <div className={styles.title}>{title}</div>
                 
                 <span className={styles.arrow}>
-                    {isCollapsed ? <FaArrowDown/> : <FaArrowRight/>}
+                    {isThisCollapsed ? <FaArrowDown/> : <FaArrowRight/>}
                 </span>
             </div>
-            <div className={`${styles.collapseContent} ${isCollapsed ? styles.collapsed : ''}`}>
+            <div className={`${styles.collapseContent} ${isThisCollapsed ? styles.collapsed : ''}`}>
                 {children}
             </div>
         </div>

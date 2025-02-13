@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaHome, FaCog, FaBook, FaHistory } from 'react-icons/fa';
+import { FaHome, FaCog, FaHistory, FaServer    } from 'react-icons/fa';
 import styles from './Sidebar.module.css';
 
 function Sidebar({ onLinkClick }) {
@@ -35,6 +35,19 @@ function Sidebar({ onLinkClick }) {
           <FaCog />
         </div>
         <span>Settings</span>
+      </div>
+
+      <div
+        className={`${styles.sidebarItem} ${activeItem === 'apiSettingForm' ? styles.active : ''}`}
+        onClick={() => {
+          onLinkClick('apiSettingForm');
+          onItemClick('apiSettingForm');
+        }}
+      >
+        <div className={styles.icon}>
+          <FaServer   />
+        </div>
+        <span>API Settings</span>
       </div>
 
       <div
