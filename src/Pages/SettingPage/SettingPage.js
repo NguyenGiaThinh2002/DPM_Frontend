@@ -10,19 +10,36 @@ import Dialog from '../../Components/Dialog/Dialog';
 export default function SettingPage() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errors, setErrors] = useState({});
+  
   const users = useSelector((state) => state.user.users);
   const settings = useSelector((state) => state.setting.settings);
-  const [formDataSettings, setFormDataSettings] = useState({});
+  const [formDataSettings, setFormDataSettings] = useState({
+    serverUrl: "",
+    serverPort: "",
+    databaseUrl: "",
+    databaseName: "",
+    periodicTime: "0",
+    cycleTime: "0",
+    isServerStarted: false
+  });
 
   const [showDialog, setShowDialog] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  
   const openDialog = () => setShowDialog(true);
   const closeDialog = () => setShowDialog(false);
 
 
   const dispatch = useDispatch();
+  const [render, setRender] = useState(false);
+  const reSetRender = () => {
+      setRender(!render);
+  }
+
   useEffect(() => {
-    dispatch(fetchSettings());
-  }, [dispatch]);
+      dispatch(fetchSettings());
+  }, [dispatch, render]);
 
   useEffect(() => {
     setFormDataSettings({
@@ -32,6 +49,7 @@ export default function SettingPage() {
       databaseName: settings.databaseName || "",
       periodicTime: settings.periodicTime || "0",
       cycleTime: settings.cycleTime || "0",
+      isServerStarted: settings.isServerStarted || false
     });
   }, [settings]);
 
@@ -66,6 +84,9 @@ export default function SettingPage() {
     } else {
       saveSetting();
       // dispatch(fetchSettings());
+      setIsSuccess(true)
+      setSuccessMessage('Save Settings Successfully');
+      openDialog();
     }
     console.log("Form Submitted", formDataSettings);
   };
@@ -73,8 +94,7 @@ export default function SettingPage() {
   const saveSetting = async () => {
     try {
       await axios.post(`/settings/createSettings/${users._id}`, formDataSettings);
-      console.log("SUCCESSFUL");
-      openDialog();
+      reSetRender();
     } catch (error) {
       console.log("FAILED", error);
     }
@@ -82,12 +102,75 @@ export default function SettingPage() {
 
   const startServer = async () =>{
     try {
-      await axios.post(`/settings/startServerSettings/${users._id}`);
-      console.log("Start Server SUCCESSFUL");
+      await axios.post(`/settings/startServerSettings/${users._id}`)
+      .then(response => {
+        setIsSuccess(true)
+        setSuccessMessage('Start Server Successfully');
+        openDialog();
+        formDataSettings.isServerStarted = true;
+        saveSetting();
+        // console.log(response.data);
+      })
+      .catch(error => { 
+        // Handle error
+        if (error.response) {
+          console.error('Error:', error.response.data.message || 'An error occurred');
+          setIsSuccess(false)
+          setSuccessMessage(error.response.data.message || 'An error occurred');
+          openDialog();
+        } else {
+          console.error('Error:', error.message);
+        }
+      });
+
     } catch (error) {
       console.log("FAILED", error);
     }
   }
+
+  const stopServer = async () =>{
+    try {
+      formDataSettings.isServerStarted = false;
+      await axios.post(`/settings/stopServerSettings/${users._id}`);
+      setIsSuccess(true)
+      setSuccessMessage('Stop Server Successfully');
+      openDialog();
+      await saveSetting();
+      // reSetRender();
+
+    } catch (error) {
+      console.log("FAILED", error);
+    }
+  }
+  const [successMessage, setSuccessMessage] = useState("Successfull")
+
+  const syncDataManual = async () =>{
+    try {
+      await axios.post(`/settings/syncDataManual/${users._id}`)
+      .then(response => {
+        setIsSuccess(true)
+        setSuccessMessage('Sync Data Manual Successfully');
+        openDialog();
+        // console.log(response.data);
+      })
+      .catch(error => {
+        // Handle error
+        if (error.response) {
+          console.error('Error:', error.response.data.message || 'An error occurred');
+          setIsSuccess(false)
+          setSuccessMessage(error.response.data.message || 'An error occurred');
+          openDialog();
+        } else {
+          console.error('Error:', error.message);
+        }
+      });
+
+    } catch (error) {
+      console.log("FAILED", error);
+    }
+
+  }
+  
 
   return (
     <div className={styles.content} >
@@ -95,10 +178,10 @@ export default function SettingPage() {
       <div className={styles.settingBody}>
         <Collapse className={styles.serverSetting} title='Server Settings'>
           <div className={styles.server}>
-            {/* <div className={styles.setting}>Server Settings</div> */}
+            {/* <div className={styles.setting}>Server Settings https://</div> */}
             <div className={styles.text}>Enter Server URL:</div>
             <div className={styles.formgroup}>
-              <span>https://</span>
+              <span>URL</span>
               <input
                 value={formDataSettings.serverUrl}
                 name="serverUrl"
@@ -133,7 +216,7 @@ export default function SettingPage() {
             <div className={styles.text}>Enter Database URL:</div>
 
             <div className={styles.formgroup}>
-              <span>https://</span>
+              <span>URL</span>
               <input
                 value={formDataSettings.databaseUrl}
                 name="databaseUrl"
@@ -212,18 +295,29 @@ export default function SettingPage() {
           Save Settings
         </button>
 
-        <button
-          onClick={() => startServer()}
-          className={styles.startServerButton}>
-          Start Server
-        </button>
-
-        <button disabled={isDisabled}
+        {!formDataSettings.isServerStarted ? 
+        <>
+          <button
+            onClick={() => startServer()}
+            className={styles.startServerButton}>
+            Start Server
+          </button>
+        </> : <>
+          <button
+            onClick={() => stopServer()}
+            className={styles.stopServerButton}>
+            Stop Server
+          </button>
+        </>
+        }
+        {/* disabled={!isServerStarted} */}
+        <button 
+          onClick={() => syncDataManual()}
           className={styles.SyncDataButton}>
           Sync Data
         </button>
       </div>
-      {showDialog && <Dialog message="Save settings successfully" onClose={closeDialog} />}
+      {showDialog && <Dialog message={successMessage} onClose={closeDialog} isSuccess={isSuccess} />}
     </div>
   )
 }

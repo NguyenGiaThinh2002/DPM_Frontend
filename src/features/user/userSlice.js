@@ -4,7 +4,7 @@ import axios from "../../Services/axios";
 // Async API call using Redux Thunk
 export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {
   const response = await axios.get("users/getUser?userName=nguyengiathinh1&passWord=nguyengiathinh2");
-  console.log("thuinh", response);
+  // console.log("thuinh", response);
   return response.data; // Directly access response.data
 });
 

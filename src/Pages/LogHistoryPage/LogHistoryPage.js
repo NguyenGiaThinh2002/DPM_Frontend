@@ -16,6 +16,7 @@ export default function LogHistoryPage() {
 
     useEffect(() => {
       setData(loggings);
+      // console.log("loggings", loggings);
       setLoading(false);
     },[loggings])
 

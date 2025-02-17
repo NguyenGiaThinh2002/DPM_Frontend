@@ -10,7 +10,7 @@ export const fetchSettings = createAsyncThunk("settings/fetchSettings", async (_
   }
 
   const response = await axios.get(`settings/getSettings/${users._id}`);
-  console.log("fetchSettings", response);
+  // console.log("fetchSettings", response);
   return response.data; // Directly access response.data
 });
 

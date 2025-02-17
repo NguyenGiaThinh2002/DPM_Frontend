@@ -189,6 +189,14 @@ html {
     background-color: #00d1c7;
 }
 
+.stopServerButton{
+    position: absolute;
+    right: 0;
+    margin-right: 200px;
+    width: 150px;
+    background-color: #d10700;
+}
+
 .SyncDataButton{
     position: absolute;
     right: 0;

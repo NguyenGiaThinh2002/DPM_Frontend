@@ -14,17 +14,6 @@ function BodyContent({ selectedForm }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch data from server
-    // fetch('https://your-api-endpoint.com/data') // Replace with your API endpoint
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setData(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching data:', error);
-    //     setLoading(false);
-    //   });
       const simulatedData = [
         { id: 1, name: 'John Doe', email: 'johndoe@example.com', phone: '123-456-7890' },
         { id: 2, name: 'Jane Smith', email: 'janesmith@example.com', phone: '987-654-3210' },
@@ -38,10 +27,6 @@ function BodyContent({ selectedForm }) {
         setLoading(false);
       }, 1000); // Delay for 1 second
   }, []);
-
-  // if (loading) {
-  //   return <div className={styles.loading}>Loading...</div>;
-  // }
 
   return selectedForm === 'settingsForm' ? (
     <div className={styles.bodyContent}>
@@ -64,8 +49,9 @@ function BodyContent({ selectedForm }) {
   ) : (
     <div className={styles.bodyContent}>
       <div className={styles.content}>
+        <div>This is an empty page</div>
         {/* <button>Synchronize Data</button> */}
-        {/* {loading ? <div style={{marginTop: "150px"}}>Loading...</div> : <DataTable data={data} dataName={dataName} dataColumns={dataColumns}/>} */}
+        {loading ? <div style={{marginTop: "150px"}}>Loading...</div> : <DataTable data={data} dataName={dataName} dataColumns={dataColumns}/>}
       </div>
     </div>
   );

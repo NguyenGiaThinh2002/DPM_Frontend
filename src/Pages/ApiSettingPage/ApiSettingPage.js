@@ -128,8 +128,6 @@ export default function ApiSettingPage() {
 
     const createApiSetting = async () => {
         try {
-          
-            
             formApiDataSettings.fields = fieldRows;
             formApiDataSettings.params = paramsRows;
             const res = await axios.post(`/apiSettings/createApiSettings/${users._id}`, formApiDataSettings);
@@ -162,6 +160,7 @@ export default function ApiSettingPage() {
             clearFields();
             openDialog();
             reSetRender();
+            setEdit(false) ;
         } catch (error) {
             console.log("saveApiSetting failed", error);
         }

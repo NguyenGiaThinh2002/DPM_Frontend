@@ -10,7 +10,7 @@ export const fetchApiSettings = createAsyncThunk("apiSettings/fetchApiSettings",
   }
 
   const response = await axios.get(`apiSettings/getAllApiSettings/${users._id}`);
-  console.log("fetchApiSettings", response);
+  // console.log("fetchApiSettings", response);
   return response.data; // Directly access response.data
 });
 
